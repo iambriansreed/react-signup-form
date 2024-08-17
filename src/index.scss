@@ -1,0 +1,148 @@
+html {
+    box-sizing: border-box;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+    color: #333;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: inherit;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+svg {
+    max-width: 1rem;
+    fill: currentColor;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+body {
+    margin: 2rem;
+
+    > div {
+        margin: 0 auto;
+        max-width: 600px;
+    }
+}
+
+form {
+    .field {
+        margin-bottom: 1rem;
+
+        > label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+        }
+
+        input[type='text'],
+        input[type='password'] {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+        }
+
+        .input {
+            display: flex;
+            flex-direction: row;
+
+            > input {
+                padding: 0.5rem;
+
+                outline: none;
+
+                &:not(:placeholder-shown) {
+                    border-right: 0;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                &:placeholder-shown + label {
+                    display: none;
+                }
+            }
+
+            label {
+                border: 1px solid #ccc;
+                border-left: 0;
+
+                border-radius: 0.5rem;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+
+                cursor: pointer;
+                display: flex;
+
+                &::before {
+                    content: 'show';
+                    display: flex;
+                    align-items: center;
+                    padding: 0 0.5rem;
+                    text-transform: uppercase;
+                    font-size: 70%;
+                }
+
+                &:has(:checked) {
+                    &::before {
+                        content: 'hide';
+                    }
+                }
+
+                input[type='checkbox'] {
+                    display: none;
+                }
+            }
+        }
+
+        .error {
+            margin-top: 0.25rem;
+            color: tomato;
+        }
+
+        &:has(.error) {
+            > label {
+                color: tomato;
+            }
+
+            input {
+                border-color: tomato;
+            }
+        }
+    }
+
+    button {
+        min-width: fit-content;
+        padding: 0 1rem;
+        font-size: 1rem;
+        min-height: 2.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+}
