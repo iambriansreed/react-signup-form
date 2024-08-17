@@ -27,6 +27,7 @@ export default function App() {
                 <div className="welcome">
                     <h1>Welcome back, {userInfo.username}!</h1>
                     <button
+                        type="button"
                         onClick={() => {
                             setUserInfo(null);
                             localStorage.removeItem('userInfo');

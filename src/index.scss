@@ -1,7 +1,7 @@
 html {
     box-sizing: border-box;
     font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
     line-height: 1.5;
     color: #333;
 }
@@ -49,11 +49,11 @@ body {
 
 form {
     .field {
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
 
         > label {
             display: block;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.125rem;
             font-weight: bold;
         }
 
@@ -64,11 +64,19 @@ form {
             font-size: 1rem;
             border: 1px solid #ccc;
             border-radius: 0.5rem;
+            &:focus-within {
+                outline: solid 0.25rem rgba(0, 0, 255, 0.25);
+            }
         }
 
         .input {
             display: flex;
             flex-direction: row;
+            border-radius: 0.5rem;
+
+            &:focus-within {
+                outline: solid 0.25rem rgba(0, 0, 255, 0.25);
+            }
 
             > input {
                 padding: 0.5rem;
@@ -83,6 +91,10 @@ form {
 
                 &:placeholder-shown + label {
                     display: none;
+                }
+
+                &:focus-within {
+                    outline: none;
                 }
             }
 
@@ -133,16 +145,16 @@ form {
             }
         }
     }
+}
 
-    button {
-        min-width: fit-content;
-        padding: 0 1rem;
-        font-size: 1rem;
-        min-height: 2.5rem;
-        border-radius: 0.5rem;
-        border: 1px solid #ccc;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
+button {
+    min-width: fit-content;
+    padding: 0 1rem;
+    font-size: 1rem;
+    min-height: 2.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }

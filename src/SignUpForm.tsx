@@ -53,14 +53,15 @@ export default function SignUpForm({
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         setFormData((p) => ({ ...p, submitted: true }));
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (
             !formData.username ||
             !formData.password.match(PASSWORD_REGEX) ||
             !formData.password2 ||
             formData.password !== formData.password2
         ) {
-            event.preventDefault();
-            event.stopPropagation();
             return;
         }
 
@@ -68,6 +69,8 @@ export default function SignUpForm({
             username: formData.username,
             password: formData.password,
         });
+
+        event.preventDefault();
     }
 
     return (
