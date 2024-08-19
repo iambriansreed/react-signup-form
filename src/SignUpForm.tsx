@@ -1,8 +1,5 @@
 import { useState } from 'react';
 
-const PASSWORD_REGEX = /.{10,}/;
-const PASSWORD_REGEX_MESSAGE = 'Password must be greater than 10 characters';
-
 function cx(...classNames: (string | boolean | undefined)[]) {
     return classNames.filter(Boolean).join(' ');
 }
@@ -38,7 +35,7 @@ export default function SignUpForm({
 }: {
     setUserInfo: (userInfo: { username: string; password: string }) => void;
 }) {
-    const [formData, setFormData] = useState({
+    const [{ password, password2, submitted, username }, setFormData] = useState({
         username: '',
         password: '',
         password2: '',
@@ -50,34 +47,21 @@ export default function SignUpForm({
         if (name) setFormData((p) => ({ ...p, [name]: value }));
     }
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    function handleSubmit() {
         setFormData((p) => ({ ...p, submitted: true }));
 
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (
-            !formData.username ||
-            !formData.password.match(PASSWORD_REGEX) ||
-            !formData.password2 ||
-            formData.password !== formData.password2
-        ) {
-            return;
-        }
-
-        setUserInfo({
-            username: formData.username,
-            password: formData.password,
-        });
-
-        event.preventDefault();
+        if (username && password2 && password == password2)
+            setUserInfo({
+                username: username,
+                password: password,
+            });
     }
 
     return (
         <>
             <div className="sign-up-form">
                 <form
-                    className="form"
+                    className={cx('form', submitted && 'submitted')}
                     onSubmit={handleSubmit}
                     onChange={handleChange}
                     method="dialog"
@@ -87,13 +71,7 @@ export default function SignUpForm({
                         <h1>Sign Up</h1>
                     </header>
                     <main>
-                        <div
-                            className={cx(
-                                'field',
-                                //
-                                formData.submitted && !formData.username && 'error required'
-                            )}
-                        >
+                        <div className={cx('field', !username && 'error')}>
                             <label htmlFor="username">Username</label>
                             <input
                                 type="text"
@@ -103,38 +81,20 @@ export default function SignUpForm({
                                 required
                                 autoComplete="off"
                             />
-                            {formData.submitted && !formData.username && (
-                                <p className="error required">Username is required</p>
-                            )}
+                            {!username && <p className="error required">Username is required</p>}
                         </div>
-                        <div
-                            className={cx(
-                                'field',
-                                //
-                                formData.submitted && !formData.password && 'error required'
-                            )}
-                        >
+                        <div className={cx('field', !password && 'error')}>
                             <label htmlFor="password">Password</label>
                             <PasswordField name="password" placeholder="Create a password" />
-                            {formData.submitted && !formData.password.match(PASSWORD_REGEX) && (
-                                <p className="error required">{PASSWORD_REGEX_MESSAGE}</p>
-                            )}
+                            {!password && <p className="error required">Password is required</p>}
                         </div>
-                        <div
-                            className={cx(
-                                'field',
-                                formData.submitted && !formData.password2 && 'error required',
-                                formData.submitted &&
-                                    formData.password !== formData.password2 &&
-                                    'error mismatch'
-                            )}
-                        >
+                        <div className={cx('field', (!password2 || password !== password2) && 'error')}>
                             <label htmlFor="password2">Password Confirmation</label>
                             <PasswordField name="password2" placeholder="Confirm password" />
-                            {formData.submitted && !formData.password2 && (
+                            {!password2 && (
                                 <p className="error required">Password Confirmation is required</p>
                             )}
-                            {formData.submitted && formData.password !== formData.password2 && (
+                            {password !== password2 && (
                                 <p className="error mismatch">Passwords do not match</p>
                             )}
                         </div>

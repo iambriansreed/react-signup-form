@@ -130,18 +130,27 @@ form {
             }
         }
 
-        .error {
-            margin-top: 0.25rem;
-            color: tomato;
+        p.error {
+            display: none;
         }
+    }
 
-        &:has(.error) {
-            > label {
+    &.submitted {
+        .field {
+            p.error {
+                display: block;
+                margin-top: 0.25rem;
                 color: tomato;
             }
 
-            input {
-                border-color: tomato;
+            &:has(.error) {
+                > label {
+                    color: tomato;
+                }
+
+                input {
+                    border-color: tomato;
+                }
             }
         }
     }
